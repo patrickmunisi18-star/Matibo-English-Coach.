@@ -1,40 +1,40 @@
 name: Build Matibo English Coach APK
 
 on:
-workflow_dispatch:
-push:
-paths:
-- 'MatiboEnglishCoach_Project.zip'
-- '.github/workflows/build.yml'
+  workflow_dispatch:
+  push:
+    paths:
+      - "MatiboEnglishCoach_Project.zip"
+      - ".github/workflows/build.yml"
 
 jobs:
-build:
-runs-on: ubuntu-latest
-steps:
-- name: Checkout repository
-uses: actions/checkout@v4
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  - name: Set up Java
-    uses: actions/setup-java@v4
-    with:
-      distribution: temurin
-      java-version: '17'
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
 
-  - name: Set up Gradle
-    uses: gradle/actions/setup-gradle@v4
-    with:
-      gradle-version: '8.9'
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
 
-  - name: Extract project
-    run: unzip -o MatiboEnglishCoach_Project.zip -d project
+      - name: Extract project
+        run: unzip -o MatiboEnglishCoach_Project.zip -d project
 
-  - name: Build APK
-    run: |
-      cd project
-      gradle assembleDebug
+      - name: Build APK
+        run: |
+          cd project
+          gradle assembleDebug
 
-  - name: Upload APK
-    uses: actions/upload-artifact@v4
-    with:
-      name: Matibo-English-Coach-APK
-      path: project/app/build/outputs/apk/debug/app-debug.apk
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Matibo-English-Coach-APK
+          path: project/app/build/outputs/apk/debug/app-debug.apk
