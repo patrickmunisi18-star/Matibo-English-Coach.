@@ -30,6 +30,12 @@ jobs:
         run: |
           unzip MatiboEnglishCoach_Project.zip -d project
 
+            - name: Fix Java and Kotlin JVM targets
+        run: |
+          FILE=$(find project -name "build.gradle.kts" -path "*/app/*" | head -n 1)
+          sed -i '/compileOptions {/a\        sourceCompatibility = JavaVersion.VERSION_17\n        targetCompatibility = JavaVersion.VERSION_17' "$FILE"
+          sed -i '/kotlinOptions {/a\        jvmTarget = "17"' "$FILE"
+
       - name: Build APK
         run: |
           cd project
