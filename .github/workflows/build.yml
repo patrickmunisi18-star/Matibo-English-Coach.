@@ -25,10 +25,8 @@ uses: actions/checkout@v4
     with:
       gradle-version: '8.9'
 
-  - name: Extract Android project
-    run: |
-      mkdir project
-      unzip -o MatiboEnglishCoach_Project.zip -d project
+  - name: Extract project
+    run: unzip -o MatiboEnglishCoach_Project.zip -d project
 
   - name: Build APK
     run: |
